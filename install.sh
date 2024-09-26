@@ -65,11 +65,11 @@ check_token() {
   if [ "$USER_TOKEN" = "cifumo" ]; then
     echo -e "${GREEN}AKSES BERHASIL${NC}}"
   else
-    echo -e "${GREEN}Buy dulu Gih Ke Fadhost${NC}"
-    echo -e "${YELLOW}TELEGRAM : @fadhost${NC}"
-    echo -e "${YELLOW}WHATSAPP : 6289530583676${NC}"
-    echo -e "${YELLOW}HARGA TOKEN : 10K FREE UPDATE JIKA ADA TOKEN BARU${NC}"
-    echo -e "${YELLOW}©FadhostOffc${NC}"
+    echo -e "${GREEN}chat dulu Gih Ke cifumo{NC}"
+    echo -e "${YELLOW}Github : @cifumo${NC}"
+    echo -e "${YELLOW}WHATSAPP : 62887437975626${NC}"
+    echo -e "${YELLOW}Info : Free Use For Pterodoctyl${NC}"
+    echo -e "${YELLOW}©cifumo${NC}"
     exit 1
   fi
   clear
