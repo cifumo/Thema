@@ -612,6 +612,7 @@ while true; do
   echo "8. Ubah Pw Vps"
   echo "9. Auto Install Panel"
   echo "10. Ubah Background Panel"
+  echo "11. Hapus Background Panel"
   echo "x. Exit"
   echo -e "Masukkan pilihan 1/2/x:"
   read -r MENU_CHOICE
