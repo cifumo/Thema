@@ -388,6 +388,85 @@ sudo systemctl start wings
   clear
   exit 0
 }
+ubah_background() {
+  echo -e "                                                       "
+  echo -e "${BLUE}[+] =============================================== [+]${NC}"
+  echo -e "${BLUE}[+]                    UBAH BACKGROUND                 [+]${NC}"
+  echo -e "${BLUE}[+] =============================================== [+]${NC}"
+  echo -e "                                                       "
+  
+  #!/bin/bash
+
+  # Default URL gambar
+  DEFAULT_URL="https://telegra.ph/file/28c25edd617126d1056d9.jpg"
+
+  # Meminta input URL gambar dari pengguna
+  read -p "Masukkan URL gambar (tekan Enter untuk menggunakan URL default): " USER_URL
+
+  # Jika input kosong, gunakan URL default
+  if [ -z "$USER_URL" ]; then
+      URL="$DEFAULT_URL"
+  else
+      URL="$USER_URL"
+  fi
+
+  # Masuk ke direktori yang diinginkan
+  cd /var/www/pterodactyl/resources/views/templates || exit
+
+  # Cek jika file wrapper.blade.php mengandung kode CSS tertentu
+  if grep -q 'background-image' wrapper.blade.php; then
+      echo "APAKAH ANDA SUDAH MENGHAPUS BACKGROUND ANDA SEBELUM MEMASANG?"
+      read -p "JIKA BELUM PERNAH / SUDAH Ketik y, JIKA BELUM KETIK n: " CONFIRM
+
+      if [ "$CONFIRM" != "y" ]; then
+          echo -e "${RED}SILAHKAN HAPUS TERLEBIH DAHULU${NC}"
+          exit 1
+      fi
+  fi
+
+  # Tambahkan kode CSS di bagian atas file wrapper.blade.php
+  {
+    # Menyimpan konten baru yang akan ditambahkan
+    echo '<!DOCTYPE html>'
+    echo '<html lang="en">'
+    echo '<head>'
+    echo '    <meta charset="UTF-8">'
+    echo '    <meta name="viewport" content="width=device-width, initial-scale=1.0">'
+    echo '    <title>Pterodactyl Background</title>'
+    echo '    <style>'
+    echo "        body {"
+    echo "            background-image: url('$URL');"
+    echo '            background-size: cover;'
+    echo '            background-repeat: no-repeat;'
+    echo '            background-attachment: fixed;'
+    echo '            margin: 0;'
+    echo '            padding: 0;'
+    echo '        }'
+    echo '    </style>'
+    echo '</head>'
+    echo '<body>'
+    echo '    <!-- Konten lain di sini -->'
+    echo '</body>'
+    echo '</html>'
+    echo ''
+
+    # Tambahkan isi file wrapper.blade.php yang ada sebelumnya
+    cat wrapper.blade.php
+  } > /tmp/new_wrapper.blade.php
+
+  # Salin file baru ke tempat file lama
+  mv /tmp/new_wrapper.blade.php wrapper.blade.php
+
+  echo -e "                                                       "
+  echo -e "${GREEN}[+] =============================================== [+]${NC}"
+  echo -e "${GREEN}[+]               UBAH BACKGROUND SUKSES                [+]${NC}"
+  echo -e "${GREEN}[+] =============================================== [+]${NC}"
+  echo -e "                                                       "
+
+  sleep 2
+  clear
+  exit 0
+}
 hackback_panel() {
   echo -e "                                                       "
   echo -e "${BLUE}[+] =============================================== [+]${NC}"
@@ -532,6 +611,7 @@ while true; do
   echo "7. Hack Back Panel"
   echo "8. Ubah Pw Vps"
   echo "9. Auto Install Panel"
+  echo "10. Ubah Background Panel"
   echo "x. Exit"
   echo -e "Masukkan pilihan 1/2/x:"
   read -r MENU_CHOICE
@@ -564,6 +644,9 @@ while true; do
       ;;
       9)
       auto_installer
+      ;;
+      10)
+      ubah_background
       ;;
     x)
       echo "Keluar dari skrip."
