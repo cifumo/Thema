@@ -744,6 +744,7 @@ while true; do
       ;;
       11)
       hapus_background
+      ;;
     x)
       echo "Keluar dari skrip."
       exit 0
